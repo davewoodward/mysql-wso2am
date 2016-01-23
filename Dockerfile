@@ -17,6 +17,7 @@ RUN cd /docker-entrypoint-initdb.d && \
     echo "create database apimgtdb;" >> apimgtdb.sql && \
     echo "use apimgtdb;" >> apimgtdb.sql && \
     cat /tmp/wso2am-$VERSION/dbscripts/apimgt/mysql.sql >> apimgtdb.sql && \
+    echo "grant all on apimgtdb.* to apimgr;" >> apimgtdb.sql && \
     touch userdb.sql && \
     echo "SET @@GLOBAL.innodb_strict_mode='OFF';" >> userdb.sql && \
     echo "SET @@GLOBAL.sql_mode='';" >> userdb.sql && \
@@ -25,6 +26,7 @@ RUN cd /docker-entrypoint-initdb.d && \
     echo "create database userdb;" >> userdb.sql && \
     echo "use userdb;" >> userdb.sql && \
     cat /tmp/wso2am-$VERSION/dbscripts/mysql.sql >> userdb.sql && \
+    echo "grant all on userdb.* to apimgr;" >> userdb.sql && \    
     touch regdb.sql && \
     echo "SET @@GLOBAL.innodb_strict_mode='OFF';" >> regdb.sql && \
     echo "SET @@GLOBAL.sql_mode='';" >> regdb.sql && \
@@ -33,5 +35,6 @@ RUN cd /docker-entrypoint-initdb.d && \
     echo "create database regdb;" >> regdb.sql && \
     echo "use regdb;" >> regdb.sql && \
     cat /tmp/wso2am-$VERSION/dbscripts/mysql.sql >> regdb.sql && \
+    echo "grant all on regdb.* to apimgr;" >> regdb.sql && \
     rm -r /tmp/wso2am-$VERSION && \
     rm /tmp/wso2am-$VERSION.zip
