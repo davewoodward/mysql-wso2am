@@ -27,7 +27,7 @@ RUN cd /docker-entrypoint-initdb.d && \
     echo "create database userdb;" >> userdb.sql && \
     echo "use userdb;" >> userdb.sql && \
     cat /tmp/wso2am-$VERSION/dbscripts/mysql.sql >> userdb.sql && \
-    echo "grant all privileges on userdb.* to 'apimgr'@'%'" >> userdb.sql && \
+    echo "grant all privileges on userdb.* to 'apimgr'@'%';" >> userdb.sql && \
     echo "flush privileges;" >> userdb.sql && \    
     touch regdb.sql && \
     echo "SET @@GLOBAL.innodb_strict_mode='OFF';" >> regdb.sql && \
@@ -37,7 +37,7 @@ RUN cd /docker-entrypoint-initdb.d && \
     echo "create database regdb;" >> regdb.sql && \
     echo "use regdb;" >> regdb.sql && \
     cat /tmp/wso2am-$VERSION/dbscripts/mysql.sql >> regdb.sql && \
-    echo "grant all privileges on regdb.* to 'apimgr'@'%'" >> regdb.sql && \
+    echo "grant all privileges on regdb.* to 'apimgr'@'%';" >> regdb.sql && \
     echo "flush privileges;" >> regdb.sql && \
     rm -r /tmp/wso2am-$VERSION && \
     rm /tmp/wso2am-$VERSION.zip
