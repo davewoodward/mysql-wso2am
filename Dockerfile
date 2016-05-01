@@ -41,3 +41,9 @@ RUN cd /docker-entrypoint-initdb.d && \
     echo "flush privileges;" >> regdb.sql && \
     rm -r /tmp/wso2am-$VERSION && \
     rm /tmp/wso2am-$VERSION.zip
+RUN wget -P /opt https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/4.0/flyway-commandline-4.0-linux-x64.tar.gz && \
+    cd /opt && \
+    tar -xvf flyway-commandline-4.0-linux-x64.tar.gz && \
+    rm flyway-commandline-4.0-linux-x64.tar.gz
+
+ENV PATH $PATH:/opt/flyway-4.0
