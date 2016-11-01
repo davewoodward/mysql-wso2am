@@ -1,13 +1,11 @@
 FROM mysql:latest
 
-ENV VERSION=1.9.1
-
 RUN apt-get update && \
     apt-get install -y zip && \
     apt-get install -y wget && \
     apt-get clean
-RUN wget -P /tmp https://s3-us-west-2.amazonaws.com/wso2-stratos/wso2am-$VERSION.zip && \
-    unzip /tmp/wso2am-$VERSION.zip -d /tmp
+RUN wget --no-check-certificate -P /tmp https://nexus.salte.io:8443/repository/wso2/api/2.0.0/platform.zip && \
+    unzip /tmp/platform.zip -d /tmp
 RUN cd /docker-entrypoint-initdb.d && \
     touch apimgtdb.sql && \
     echo "SET @@GLOBAL.innodb_strict_mode='OFF';" >> apimgtdb.sql && \
@@ -28,7 +26,7 @@ RUN cd /docker-entrypoint-initdb.d && \
     echo "use userdb;" >> userdb.sql && \
     cat /tmp/wso2am-$VERSION/dbscripts/mysql.sql >> userdb.sql && \
     echo "grant all privileges on userdb.* to 'apimgr'@'%';" >> userdb.sql && \
-    echo "flush privileges;" >> userdb.sql && \    
+    echo "flush privileges;" >> userdb.sql && \
     touch regdb.sql && \
     echo "SET @@GLOBAL.innodb_strict_mode='OFF';" >> regdb.sql && \
     echo "SET @@GLOBAL.sql_mode='';" >> regdb.sql && \
@@ -39,8 +37,8 @@ RUN cd /docker-entrypoint-initdb.d && \
     cat /tmp/wso2am-$VERSION/dbscripts/mysql.sql >> regdb.sql && \
     echo "grant all privileges on regdb.* to 'apimgr'@'%';" >> regdb.sql && \
     echo "flush privileges;" >> regdb.sql && \
-    rm -r /tmp/wso2am-$VERSION && \
-    rm /tmp/wso2am-$VERSION.zip
+    rm -r /tmp/wso2am-2.0.0 && \
+    rm /tmp/platform.zip
 RUN wget -P /opt https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/4.0/flyway-commandline-4.0-linux-x64.tar.gz && \
     cd /opt && \
     tar -xvf flyway-commandline-4.0-linux-x64.tar.gz && \
