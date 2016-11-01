@@ -14,7 +14,7 @@ RUN cd /docker-entrypoint-initdb.d && \
     echo "SET @@SESSION.sql_mode='';" >> apimgtdb.sql && \
     echo "create database apimgtdb;" >> apimgtdb.sql && \
     echo "use apimgtdb;" >> apimgtdb.sql && \
-    cat /tmp/wso2am-$VERSION/dbscripts/apimgt/mysql.sql >> apimgtdb.sql && \
+    cat /tmp/wso2am-2.0.0/dbscripts/apimgt/mysql.sql >> apimgtdb.sql && \
     echo "grant all privileges on apimgtdb.* to 'apimgr'@'%';" >> apimgtdb.sql && \
     echo "flush privileges;" >> apimgtdb.sql && \
     touch userdb.sql && \
@@ -24,7 +24,7 @@ RUN cd /docker-entrypoint-initdb.d && \
     echo "SET @@SESSION.sql_mode='';" >> userdb.sql && \
     echo "create database userdb;" >> userdb.sql && \
     echo "use userdb;" >> userdb.sql && \
-    cat /tmp/wso2am-$VERSION/dbscripts/mysql.sql >> userdb.sql && \
+    cat /tmp/wso2am-2.0.0/dbscripts/mysql.sql >> userdb.sql && \
     echo "grant all privileges on userdb.* to 'apimgr'@'%';" >> userdb.sql && \
     echo "flush privileges;" >> userdb.sql && \
     touch regdb.sql && \
@@ -34,7 +34,7 @@ RUN cd /docker-entrypoint-initdb.d && \
     echo "SET @@SESSION.sql_mode='';" >> regdb.sql && \
     echo "create database regdb;" >> regdb.sql && \
     echo "use regdb;" >> regdb.sql && \
-    cat /tmp/wso2am-$VERSION/dbscripts/mysql.sql >> regdb.sql && \
+    cat /tmp/wso2am-2.0.0/dbscripts/mysql.sql >> regdb.sql && \
     echo "grant all privileges on regdb.* to 'apimgr'@'%';" >> regdb.sql && \
     echo "flush privileges;" >> regdb.sql && \
     rm -r /tmp/wso2am-2.0.0 && \
